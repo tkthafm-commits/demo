@@ -1,6 +1,8 @@
 // Vercel Serverless Function — proxies requests to Anthropic API
 // Your ANTHROPIC_API_KEY is stored as a Vercel environment variable (never exposed to the browser)
 
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
   // CORS headers
   res.setHeader("Access-Control-Allow-Origin", "*");
