@@ -93,7 +93,7 @@ const LiveDemoBot = () => {
     }
     try {
       const cleanUrl = url.trim().replace(/^(https?:\/\/)?/, "https://");
-      const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      const resp = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -135,7 +135,7 @@ const LiveDemoBot = () => {
     try {
       const sys = `You are the AI front-desk assistant for ${practiceName}. Practice info:\n${JSON.stringify(practiceInfo, null, 2)}\n\nRULES:\n- ONLY answer about this practice\n- Warm, professional, concise (2-3 sentences)\n- If patient wants to book, capture name, date preference, phone\n- If info unknown, say "I'd recommend calling our office for that detail"\n- Speak as the practice ("we offer...", "our office...")\n- Guide toward booking`;
       const history = messages.map(m => ({ role: m.from === "user" ? "user" : "assistant", content: m.text }));
-      const resp = await fetch("https://api.anthropic.com/v1/messages", {
+      const resp = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: sys, messages: [...history, { role: "user", content: msg }] })
@@ -236,7 +236,7 @@ const FAQItem = ({ q, a }) => {
   );
 };
 /* ═══════════════════ MAIN PAGE ═══════════════════ */
-export default function ClosrAILanding() {
+export default function ZidlyLanding() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => { const fn = () => setScrolled(window.scrollY > 50); window.addEventListener("scroll", fn); return () => window.removeEventListener("scroll", fn); }, []);
   return (
@@ -258,7 +258,7 @@ export default function ClosrAILanding() {
         <div style={{ maxWidth: 1200, width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg, #2dd4bf, #0d9488)", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}><ToothIcon /></div>
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: "-0.02em" }}>Closr<span style={{ color: "#2dd4bf" }}>AI</span></span>
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 800, fontSize: 20, letterSpacing: "-0.02em" }}>Zid<span style={{ color: "#2dd4bf" }}>ly</span></span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
             {[["#demo","Try Demo"],["#features","Features"],["#pricing","Pricing"],["#roadmap","Roadmap"]].map(([h,l])=><a key={h} href={h} style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 500 }}>{l}</a>)}
@@ -364,7 +364,7 @@ export default function ClosrAILanding() {
           </div></FadeIn>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
             {[
-              {n:"Dr. Sarah Mitchell",r:"Mitchell Family Dentistry, Houston TX",t:"We were losing 15-20 inquiries monthly after hours. First week with ClosrAI, we captured 12 new leads that would've been lost. Paid for itself day one."},
+              {n:"Dr. Sarah Mitchell",r:"Mitchell Family Dentistry, Houston TX",t:"We were losing 15-20 inquiries monthly after hours. First week with Zidly, we captured 12 new leads that would've been lost. Paid for itself day one."},
               {n:"Dr. James Rivera",r:"Bright Smile Dental, Phoenix AZ",t:"Front desk was overwhelmed with insurance and pricing questions. Now the AI handles 80% automatically. My team focuses on patients in the chair."},
               {n:"Dr. Priya Patel",r:"Patel Dental Group, Atlanta GA",t:"The review booster alone was worth it. 23 to 67 Google reviews in two months. New patients say they chose us because of our reviews. No-brainer."},
             ].map((t,i)=>(
@@ -478,7 +478,7 @@ export default function ClosrAILanding() {
           <FadeIn delay={0.1}><h2 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "clamp(32px, 4.5vw, 56px)", fontWeight: 400, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 20 }}>Ready to stop losing <span style={{ fontStyle: "italic", color: "#2dd4bf" }}>patients?</span></h2></FadeIn>
           <FadeIn delay={0.2}><p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 18, lineHeight: 1.7, color: "#94a3b8", maxWidth: 520, margin: "0 auto 40px" }}>Join dental practices across the country capturing more leads, collecting more reviews, and growing — on autopilot.</p></FadeIn>
           <FadeIn delay={0.3}>
-            <a href="mailto:mike@closrai.com" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg, #2dd4bf, #0d9488)", color: "white", padding: "18px 40px", borderRadius: 16, fontSize: 18, fontWeight: 700, textDecoration: "none", fontFamily: "'DM Sans', sans-serif", boxShadow: "0 8px 30px rgba(45,212,191,0.3), inset 0 1px 0 rgba(255,255,255,0.15)" }}>Get Your AI Assistant Today <ArrowRight/></a>
+            <a href="mailto:alaa@zidly.ai" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "linear-gradient(135deg, #2dd4bf, #0d9488)", color: "white", padding: "18px 40px", borderRadius: 16, fontSize: 18, fontWeight: 700, textDecoration: "none", fontFamily: "'DM Sans', sans-serif", boxShadow: "0 8px 30px rgba(45,212,191,0.3), inset 0 1px 0 rgba(255,255,255,0.15)" }}>Get Your AI Assistant Today <ArrowRight/></a>
             <p style={{ color: "#64748b", fontSize: 14, fontFamily: "'DM Sans', sans-serif", marginTop: 16 }}>No credit card required — try the free demo above first</p>
           </FadeIn>
         </div>
@@ -487,9 +487,9 @@ export default function ClosrAILanding() {
       <footer style={{ padding: "40px 24px", borderTop: "1px solid rgba(255,255,255,0.04)", textAlign: "center" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 16 }}>
           <div style={{ width: 28, height: 28, borderRadius: 8, background: "linear-gradient(135deg, #2dd4bf, #0d9488)", display: "flex", alignItems: "center", justifyContent: "center", color: "white" }}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M7 3C4.5 3 3 5 3 7.5c0 2 .5 3.5 1 5.5.7 2.8 1.5 5.5 2 8 .3 1.2 1.5 1.2 1.8 0 .5-2 1.2-3.5 2.2-3.5s1.7 1.5 2.2 3.5c.3 1.2 1.5 1.2 1.8 0 .5-2.5 1.3-5.2 2-8 .5-2 1-3.5 1-5.5C17 5 15.5 3 13 3c-1.5 0-2.2.8-3 .8S8.5 3 7 3z"/></svg></div>
-          <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 800, fontSize: 16 }}>Closr<span style={{ color: "#2dd4bf" }}>AI</span></span>
+          <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 800, fontSize: 16 }}>Zid<span style={{ color: "#2dd4bf" }}>ly</span></span>
         </div>
-        <p style={{ color: "#475569", fontSize: 13, fontFamily: "'DM Sans', sans-serif" }}>&copy; 2025 ClosrAI. All rights reserved. AI-powered patient assistants for dental practices.</p>
+        <p style={{ color: "#475569", fontSize: 13, fontFamily: "'DM Sans', sans-serif" }}>&copy; 2025 Zidly. All rights reserved. AI-powered patient assistants for dental practices.</p>
       </footer>
     </div>
   );
